@@ -16,10 +16,10 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
  * Column with ability to modify status bar color
  */
 @Composable
-fun ThemedColumn(
+fun StatusBarAwareThemedColumn(
     modifier: Modifier = Modifier,
-    verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     statusBarColor: Color = MaterialTheme.colorScheme.surface.copy(0.5f),
+    verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     content: @Composable ColumnScope.() -> Unit
 ) {
@@ -43,7 +43,7 @@ fun ThemedColumn(
  * Column with ability to modify navigation bar color
  */
 @Composable
-fun ThemedColumn(
+fun NavigationBarAwareThemedColumn(
     modifier: Modifier = Modifier,
     navigationBarColor: Color = MaterialTheme.colorScheme.surface.copy(0.5f),
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
@@ -70,7 +70,7 @@ fun ThemedColumn(
  * Column with ability to modify system bar color
  */
 @Composable
-fun ThemedColumn(
+fun SystemBarAwareThemedColumn(
     modifier: Modifier = Modifier,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,

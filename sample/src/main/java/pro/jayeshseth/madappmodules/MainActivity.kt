@@ -16,10 +16,9 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import pro.jayeshseth.commoncomponents.HomeScaffold
 import pro.jayeshseth.commoncomponents.InteractiveButton
-import pro.jayeshseth.commoncomponents.ThemedColumn
+import pro.jayeshseth.commoncomponents.StatusBarAwareThemedColumn
 import pro.jayeshseth.madappmodules.ui.theme.MadAppModulesTheme
 
 class MainActivity : ComponentActivity() {
@@ -47,8 +46,7 @@ fun SampleUI() {
             Text(text = "Sample App")
         }
     ) {
-        ThemedColumn(
-            statusBarColor = Color.Transparent,
+        StatusBarAwareThemedColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it),
