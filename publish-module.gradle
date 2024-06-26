@@ -1,0 +1,56 @@
+apply plugin: 'maven-publish'
+
+tasks.register('androidSourcesJar', Jar) {
+    archiveClassifier.set('sources')
+    if (project.plugins.findPlugin("com.android.library")) {
+        from android.sourceSets.main.kotlin.srcDirs
+        from android.sourceSets.main.java.srcDirs
+    } else {
+        from sourceSets.main.java.srcDirs
+        from sourceSets.main.kotlin.srcDirs
+    }
+}
+
+artifacts {
+    archives androidSourcesJar
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                tasks.named("generateMetadataFileForReleasePublication").configure { dependsOn("androidSourcesJar") }
+                groupId "pro.jayeshseth.madappmodules"
+                artifactId "commonModules"
+                version "0.0.1"
+
+                // Two artifacts, the `aar` (or `jar`) and the sources
+                if (project.plugins.findPlugin("com.android.library")) {
+                    from components.release
+                } else {
+                    from components.java
+                }
+
+                pom {
+                    name = "commonModules"
+                    description = 'Mad App Modules are common shared modules used in jetpack compose sample apps.'
+                    url = 'https://github.com/MadFlasheroo7/Mad-App-Modules'
+                    licenses {
+                        license {
+                            name = 'The Apache Software License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'MadFlasher'
+                            name = 'Jayesh Seth'
+                            email = 'jayesh.dev.acc@gmail.com'
+                            url = 'https://github.com/MadFlasheroo7'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
