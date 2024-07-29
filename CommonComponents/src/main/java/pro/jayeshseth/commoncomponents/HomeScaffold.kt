@@ -70,7 +70,8 @@ fun HomeScaffold(
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = animatedColor.value
+                    containerColor = animatedColor.value,
+                    scrolledContainerColor = animatedColor.value
                 ),
             )
         }
