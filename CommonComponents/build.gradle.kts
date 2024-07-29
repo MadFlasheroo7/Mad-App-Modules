@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
 }
 
 apply(from = "${rootDir}/publish-module.gradle")
@@ -24,9 +25,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-    }
-    buildFeatures {
-        compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
