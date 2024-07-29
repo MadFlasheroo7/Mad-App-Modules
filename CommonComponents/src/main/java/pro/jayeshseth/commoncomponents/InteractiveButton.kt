@@ -59,7 +59,12 @@ fun InteractiveButton(
 
     val animateColor by animateColorAsState(
         targetValue = if (buttonInteracted) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary,
-        animationSpec = tween(500, easing = LinearEasing),
+        animationSpec = tween(500),
+        label = "animated button color",
+    )
+    val animateTextColor by animateColorAsState(
+        targetValue = if (buttonInteracted) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onPrimary,
+        animationSpec = tween(500),
         label = "animated button color",
     )
     val buttonDp by animateDpAsState(
@@ -96,6 +101,7 @@ fun InteractiveButton(
         Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(12.dp)) {
             Text(
                 text = text,
+                color = animateTextColor,
                 style = MaterialTheme.typography.titleMedium,
                 modifier = textModifier,
             )
