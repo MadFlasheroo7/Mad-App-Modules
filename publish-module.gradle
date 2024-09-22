@@ -22,7 +22,7 @@ afterEvaluate {
                 tasks.named("generateMetadataFileForReleasePublication").configure { dependsOn("androidSourcesJar") }
                 groupId "pro.jayeshseth.madappmodules"
                 artifactId "commonModules"
-                version "0.0.7"
+                version "0.0.8"
 
                 // Two artifacts, the `aar` (or `jar`) and the sources
                 if (project.plugins.findPlugin("com.android.library")) {

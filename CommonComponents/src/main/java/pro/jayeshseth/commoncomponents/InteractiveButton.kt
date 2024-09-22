@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
@@ -104,6 +105,63 @@ fun InteractiveButton(
                 color = animateTextColor,
                 style = MaterialTheme.typography.titleMedium,
                 modifier = textModifier,
+            )
+        }
+    }
+}
+
+/**
+ * An Interactive Button with `Hover` and `Pressed` interaction for long click action
+ */
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun InteractiveButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    onLongClick: () -> Unit = {},
+    height: Dp = 100.dp,
+    padding: PaddingValues = PaddingValues(12.dp),
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val isHovered by interactionSource.collectIsHoveredAsState()
+    val buttonInteracted = isPressed.or(isHovered)
+
+    val animateColor by animateColorAsState(
+        targetValue = if (buttonInteracted) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary,
+        animationSpec = tween(500),
+        label = "animated button color",
+    )
+    val animateTextColor by animateColorAsState(
+        targetValue = if (buttonInteracted) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onPrimary,
+        animationSpec = tween(500),
+        label = "animated button color",
+    )
+    val buttonDp by animateDpAsState(
+        targetValue = if (buttonInteracted) 5.dp else 100.dp,
+        animationSpec = tween(500),
+        label = "animate button shape",
+    )
+    Surface(
+        shape = RoundedCornerShape(size = buttonDp),
+        color = animateColor,
+        modifier = modifier
+            .height(height)
+            .fillMaxWidth()
+            .padding(padding)
+            .combinedClickable(
+                interactionSource = interactionSource,
+                indication = rememberRipple(),
+                onClick = onClick,
+                onLongClick = onLongClick
+            )
+    ) {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(12.dp)) {
+            Text(
+                text = text,
+                color = animateTextColor,
+                style = MaterialTheme.typography.titleMedium
             )
         }
     }
